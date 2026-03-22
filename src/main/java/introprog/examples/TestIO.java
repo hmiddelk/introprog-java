@@ -80,7 +80,14 @@ public class TestIO {
             Thread.sleep(100 / 6);
         }
 
-        System.in.read();   // wait for Enter (mirrors the Scala readLine())
+        // Wait until the user closes the SaveLoadAsJpeg window.
+        // This works in both interactive and non-interactive environments,
+        // unlike System.in.read() which returns immediately when stdin is EOF.
+        System.out.println("Close the SaveLoadAsJpeg window to exit.");
+        int EVENT_WINDOW_CLOSED = 5;
+        while (w3.lastEventType() != EVENT_WINDOW_CLOSED) {
+            w3.awaitEvent(500);
+        }
         IO$.MODULE$.delete("screenshot.png");
         IO$.MODULE$.delete("screenshot.jpg");
         PixelWindow.exit();

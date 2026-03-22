@@ -146,6 +146,26 @@ build/                        generated — not committed
 
 ---
 
+## Compendium
+
+The `compendium/` directory contains PDF documents for the introductory
+programming course at Lund University:
+
+| File | Contents |
+|---|---|
+| `compendium.pdf` | Full course compendium (all chapters) |
+| `compendium1.pdf` | Compendium part 1 |
+| `compendium2.pdf` | Compendium part 2 |
+| `exercises.pdf` | Exercises |
+| `labs.pdf` | Lab assignments |
+| `assignments.pdf` | Assignments |
+| `lectures.pdf` | Lecture slides |
+| `solutions.pdf` | Solutions |
+
+These PDFs were translated from Swedish using AI (OpenAI).
+
+---
+
 ## Background
 
 The original examples are written in Scala 3 and live in the

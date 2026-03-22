@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'introprog.examples'
+version = '1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+}
+
+dependencies {
+    implementation 'se.lth.cs:introprog_3:1.4.0'
+}
+
+// Default jar – thin, just compiled classes
+jar {
+    manifest {
+        attributes 'Main-Class': 'introprog.examples.TestPixelWindow'
+    }
+}
+
+// Fat jar – bundles introprog + Scala 3 runtime so you only need one jar
+shadowJar {
+    archiveClassifier.set('fat')
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': 'introprog.examples.TestPixelWindow'
+    }
+}
+
+// Convenience tasks to run each example against the fat jar
+tasks.register('runPixelWindow', JavaExec) {
+    dependsOn shadowJar
+    classpath = files(shadowJar.archiveFile)
+    mainClass = 'introprog.examples.TestPixelWindow'
+}
+
+tasks.register('runIO', JavaExec) {
+    dependsOn shadowJar
+    classpath = files(shadowJar.archiveFile)
+    mainClass = 'introprog.examples.TestIO'
+}
+
+tasks.register('runBlockGame', JavaExec) {
+    dependsOn shadowJar
+    classpath = files(shadowJar.archiveFile)
+    mainClass = 'introprog.examples.TestBlockGame'
+}
